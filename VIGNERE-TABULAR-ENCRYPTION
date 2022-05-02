@@ -1,0 +1,120 @@
+#include<stdio.h>
+#include<string.h>
+
+int main()
+{
+    int table[27][27];
+    table[0][0]='0';
+    
+    
+    //Row heading
+    for(int i=1;i<27;i++){
+        table[0][i]=(65+i-1);
+    }
+    
+    //col heading
+    
+    for(int j=1;j<27;j++){
+        table[j][0]=(65+j-1);
+    }
+    
+    for(int i=1;i<27;i++)
+    {
+        for(int j=1;j<27;j++)
+        {
+            int charval=(65+i+j-2);
+            
+            if(charval<=90)
+            {
+                table[i][j]=charval;
+                
+            }
+            else
+            {
+                table[i][j]=charval-'Z'+'A'-1;
+            }
+        }
+    }
+    
+    //printing the table
+    
+    for(int i=0;i<27;i++)
+    {
+        for(int j=0;j<27;j++)
+        {
+            printf(" %c ",table[i][j]);
+        }
+        printf("\n");
+    }
+    
+    //input key and message
+    
+    char input[100],key[100],newkey[100];
+    
+    printf("Enter the message \n");
+    scanf("%s",input);
+    printf("Enter the key\n");
+    scanf("%s",key);
+    
+    //generate new newkey
+    
+    int ptl=strlen(input);
+    int keyl=strlen(key);
+    
+    for(int i=0,j=0;i<ptl;i++,j++){
+        if(j==keyl)
+        j=0;
+        
+        newkey[i]=key[j];
+    }
+    strcpy(key,newkey);
+    printf("%s \n",key);
+    
+    
+    //perform encryption
+    
+    char ptchar,keychar;
+    int pti,keyi;
+    int index=0;
+    char ct[100];
+    
+    
+    for(int i=0;i<ptl;i++){
+        
+        ptchar=input[i];
+        keychar=key[i];
+        
+      
+        
+        if(ptchar==" "||ptchar==",")//check for spaces
+        {
+          ct[index++]=ptchar;
+          continue;
+        }
+        
+        for(int j=1;j<27;j++)
+        {
+            char charval=table[0][j];
+            if(ptchar==charval){
+                pti=j;
+                break;
+            }
+        }
+        
+        for(int j=1;j<27;j++){
+            char charval=table[j][0];
+            if(keychar==charval){
+                    keyi=j;
+                    break;
+            }
+        
+        }
+        
+        ct[index++]=table[keyi][pti];
+        
+        
+    }
+    ct[index]='\0';
+    printf("%s ",ct);
+    return 0;
+}
