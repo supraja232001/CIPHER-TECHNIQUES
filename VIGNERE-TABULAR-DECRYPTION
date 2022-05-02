@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<string.h>
+
+int main()
+{
+    char matrix[27][27];
+    matrix[0][0]='0';
+    
+    int i,j;
+
+//table generation
+
+for(i=1;i<27;i++)
+{
+    matrix[0][i]=65+i-1;
+}
+for(j=1;j<27;j++)
+{
+    matrix[j][0]=65+j-1;
+}
+for(i=1;i<27;i++)
+{
+    for(j=1;j<27;j++)
+    {
+        int charval=65+i+j-2;
+        
+        if(charval<=90)
+        {
+            matrix[i][j]=charval;
+        }
+        else
+        {
+            matrix[i][j]=charval-'Z'+'A'-1;
+        }
+    }
+    
+}
+for(i=0;i<27;i++)
+{
+    for(j=0;j<27;j++)
+    {
+        printf("%c ",matrix[i][j]);
+    }
+    printf("\n");
+}
+
+char str[100],key[100],newkey[100];
+scanf("%s",str);
+scanf("%s",key);
+//new key
+
+int strl=strlen(str);
+int keyl=strlen(key);
+for(i=0,j=0;i<strl;i++,j++)
+{
+    if(j==keyl)
+    j=0;
+    
+    newkey[i]=key[j];
+    
+    
+}
+printf("%s",newkey);
+
+//decryption
+int row,col;
+
+for(i=0;i<strl;i++)
+{
+    for(j=0;j<26;j++)
+    {
+        if(matrix[j][0]==key[i])
+        row=j;
+        
+    }
+    
+    for(j=0;j<26;j++)
+    {
+        if(matrix[row][j]==str[i])
+        col=j;
+    }
+    
+    printf("%c ",matrix[0][col]);
+}
+
+    return 0;
+}
