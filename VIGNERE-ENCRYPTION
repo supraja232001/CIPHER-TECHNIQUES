@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char pt[100],key[100],newkey[100],encrypmsg[100];
+    printf("Enter the message to encrypt\n");
+    scanf("%s",pt);
+    printf("Enter the key to encrypt\n");
+    scanf("%s",key);
+    
+    int ptl=strlen(pt);
+    int keyl=strlen(key);
+    
+   
+    
+    //new key generation
+    int i,j;
+    for( i=0,j=0;i<ptl;i++,j++){
+        if(j==keyl)
+        j=0;
+        
+        newkey[i]=key[j];
+        
+    }
+    newkey[i]='\0';
+    
+    printf("%s \n",newkey);
+    
+    //perform encryption
+    
+    for(int i=0;i<strlen(pt);i++)
+    {
+        
+        encrypmsg[i]=((pt[i]+newkey[i])%26) + 'A';
+    }
+    
+    //print encrypted text
+    
+    printf("%s ",encrypmsg);
+    return 0;
+}
+
